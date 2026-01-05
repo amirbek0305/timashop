@@ -28,9 +28,7 @@ export const Header = ({ currentPage, onNavigate, isDark, toggleTheme }) => {
             onClick={() => onNavigate('home')}
             className="flex items-center gap-2 transition-opacity hover:opacity-70"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-foreground text-background">
-              <span className="text-sm">TS</span>
-            </div>
+            <img src="../components/images/logo'.png" alt="Logo" className="h-8 w-8 rounded-full" />
             <span className="tracking-tight">{t('logo')}</span>
           </button>
 

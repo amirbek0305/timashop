@@ -10,7 +10,7 @@ export const ContactPage = () => {
     {
       icon: Phone,
       title: t('phoneNumber'),
-      value: '+998 90 123 45 67',
+      value: '+998 91 919 42 32',
       link: 'tel:+998901234567',
     },
     {
@@ -22,8 +22,8 @@ export const ContactPage = () => {
     {
       icon: Send,
       title: 'Telegram',
-      value: '@timashop',
-      link: 'https://t.me/timashop',
+      value: '@TIMA_SHOP_UZ',
+      link: 't.me/TIMA_SHOP_UZ',
     },
     {
       icon: MapPin,

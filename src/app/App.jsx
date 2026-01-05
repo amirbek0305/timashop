@@ -4,6 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { FloatingTelegramButton } from '../app/components/FloatingTelegramButton';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 import { CatalogPage } from './pages/CatalogPage';
