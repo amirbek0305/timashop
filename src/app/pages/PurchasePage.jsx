@@ -8,19 +8,15 @@ import { Card } from '../components/ui/card';
 import { toast } from 'sonner';
 import { generateArticleCode } from '../data/products';
 
-interface PurchasePageProps {
-  onNavigate: (page: string) => void;
-}
-
-export const PurchasePage: React.FC<PurchasePageProps> = ({ onNavigate }) => {
+export const PurchasePage = ({ onNavigate }) => {
   const { t, language } = useLanguage();
   const { user } = useAuth();
   const { items, clearCart } = useCart();
-  const [orderCodes, setOrderCodes] = useState<string[]>([]);
+  const [orderCodes, setOrderCodes] = useState([]);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    // Generate unique codes for each item
+    // Har bir mahsulot uchun unik kod yaratish
     const codes = items.map(() => generateArticleCode());
     setOrderCodes(codes);
   }, [items]);
@@ -33,35 +29,20 @@ export const PurchasePage: React.FC<PurchasePageProps> = ({ onNavigate }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleTelegramSend = () => {
-    const message = generateTelegramMessage();
-    const sellerUsername = 'timashop'; // Replace with actual seller username
-    const telegramUrl = `https://t.me/${sellerUsername}?text=${encodeURIComponent(message)}`;
-    
-    window.open(telegramUrl, '_blank');
-    
-    // Clear cart after sending
-    setTimeout(() => {
-      clearCart();
-      toast.success(t('orderSuccess'));
-      onNavigate('home');
-    }, 1000);
-  };
-
   const generateTelegramMessage = () => {
     let message = `${t('telegramMessage')}\n\n`;
-    
+
     items.forEach((item, index) => {
-      const itemName = language === 'uz' ? item.name : language === 'ru' ? item.nameRu : item.nameEn;
+      const itemName =
+        language === 'uz' ? item.name :
+        language === 'ru' ? item.nameRu :
+        item.nameEn;
+
       message += `${index + 1}. ${itemName}\n`;
       message += `   ${t('article')}: ${item.article}\n`;
       message += `   ${t('orderCodes')}: ${orderCodes[index]}\n`;
-      if (item.selectedSize) {
-        message += `   ${t('size')}: ${item.selectedSize}\n`;
-      }
-      if (item.selectedColor) {
-        message += `   ${t('color')}: ${item.selectedColor}\n`;
-      }
+      if (item.selectedSize) message += `   ${t('size')}: ${item.selectedSize}\n`;
+      if (item.selectedColor) message += `   ${t('color')}: ${item.selectedColor}\n`;
       message += `   ${t('quantity')}: ${item.quantity}\n`;
       message += `   ${t('price')}: ${item.price.toLocaleString()} ${t('currency')}\n\n`;
     });
@@ -71,15 +52,25 @@ export const PurchasePage: React.FC<PurchasePageProps> = ({ onNavigate }) => {
 
     if (user) {
       message += `\n${t('fullName')}: ${user.name}`;
-      if (user.phone) {
-        message += `\n${t('phoneNumber')}: ${user.phone}`;
-      }
-      if (user.email) {
-        message += `\nEmail: ${user.email}`;
-      }
+      if (user.phone) message += `\n${t('phoneNumber')}: ${user.phone}`;
+      if (user.email) message += `\nEmail: ${user.email}`;
     }
 
     return message;
+  };
+
+  const handleTelegramSend = () => {
+    const message = generateTelegramMessage();
+    const sellerUsername = 'timashop';
+    const telegramUrl = `https://t.me/${sellerUsername}?text=${encodeURIComponent(message)}`;
+    window.open(telegramUrl, '_blank');
+
+    // Cartni tozalash
+    setTimeout(() => {
+      clearCart();
+      toast.success(t('orderSuccess'));
+      onNavigate('home');
+    }, 1000);
   };
 
   if (items.length === 0) {
@@ -93,9 +84,7 @@ export const PurchasePage: React.FC<PurchasePageProps> = ({ onNavigate }) => {
         <div className="mb-8 text-center">
           <CircleCheck className="mx-auto mb-4 h-16 w-16 text-green-600" />
           <h1 className="mb-2">{t('orderSuccess')}</h1>
-          <p className="text-muted-foreground">
-            {t('sendToTelegram')}
-          </p>
+          <p className="text-muted-foreground">{t('sendToTelegram')}</p>
         </div>
 
         {/* Order Codes */}
@@ -121,12 +110,14 @@ export const PurchasePage: React.FC<PurchasePageProps> = ({ onNavigate }) => {
               )}
             </Button>
           </div>
-
           <div className="space-y-2">
             {orderCodes.map((code, index) => {
               const item = items[index];
-              const itemName = language === 'uz' ? item.name : language === 'ru' ? item.nameRu : item.nameEn;
-              
+              const itemName =
+                language === 'uz' ? item.name :
+                language === 'ru' ? item.nameRu :
+                item.nameEn;
+
               return (
                 <div key={index} className="rounded-lg border p-3">
                   <p className="mb-1 text-sm">{itemName}</p>
@@ -142,8 +133,11 @@ export const PurchasePage: React.FC<PurchasePageProps> = ({ onNavigate }) => {
           <h3 className="mb-4">{t('cart')}</h3>
           <div className="space-y-3">
             {items.map((item, index) => {
-              const itemName = language === 'uz' ? item.name : language === 'ru' ? item.nameRu : item.nameEn;
-              
+              const itemName =
+                language === 'uz' ? item.name :
+                language === 'ru' ? item.nameRu :
+                item.nameEn;
+
               return (
                 <div key={index} className="flex justify-between text-sm">
                   <div>
@@ -157,15 +151,11 @@ export const PurchasePage: React.FC<PurchasePageProps> = ({ onNavigate }) => {
               );
             })}
           </div>
-
-          <div className="mt-4 border-t pt-4">
-            <div className="flex justify-between">
-              <span>{t('total')}</span>
-              <span>
-                {items.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString()}{' '}
-                {t('currency')}
-              </span>
-            </div>
+          <div className="mt-4 border-t pt-4 flex justify-between">
+            <span>{t('total')}</span>
+            <span>
+              {items.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString()} {t('currency')}
+            </span>
           </div>
         </Card>
 

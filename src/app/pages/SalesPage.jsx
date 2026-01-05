@@ -1,18 +1,13 @@
 import React from 'react';
 import { Tag } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Product } from '../contexts/CartContext';
 import { products } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 
-interface SalesPageProps {
-  onProductClick: (product: Product) => void;
-}
-
-export const SalesPage: React.FC<SalesPageProps> = ({ onProductClick }) => {
+export const SalesPage = ({ onProductClick }) => {
   const { t } = useLanguage();
 
-  // Mock sale products - first 6 products
+  // Chegirma mahsulotlari - hozircha birinchi 6 ta mahsulot
   const saleProducts = products.slice(0, 6);
 
   return (

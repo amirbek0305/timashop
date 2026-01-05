@@ -5,11 +5,7 @@ import { useCart } from '../contexts/CartContext';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 
-interface CartPageProps {
-  onNavigate: (page: string) => void;
-}
-
-export const CartPage: React.FC<CartPageProps> = ({ onNavigate }) => {
+export const CartPage = ({ onNavigate }) => {
   const { t, language } = useLanguage();
   const { items, removeItem, updateQuantity, totalPrice } = useCart();
 
@@ -36,8 +32,13 @@ export const CartPage: React.FC<CartPageProps> = ({ onNavigate }) => {
         {/* Cart Items */}
         <div className="space-y-4 lg:col-span-2">
           {items.map((item) => {
-            const itemName = language === 'uz' ? item.name : language === 'ru' ? item.nameRu : item.nameEn;
-            
+            const itemName =
+              language === 'uz'
+                ? item.name
+                : language === 'ru'
+                ? item.nameRu
+                : item.nameEn;
+
             return (
               <Card key={item.id} className="p-4">
                 <div className="flex gap-4">
@@ -92,7 +93,9 @@ export const CartPage: React.FC<CartPageProps> = ({ onNavigate }) => {
                       </div>
 
                       {/* Price */}
-                      <p>{(item.price * item.quantity).toLocaleString()} {t('currency')}</p>
+                      <p>
+                        {(item.price * item.quantity).toLocaleString()} {t('currency')}
+                      </p>
                     </div>
                   </div>
 

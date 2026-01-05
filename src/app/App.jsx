@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
-import { CartProvider, Product } from './contexts/CartContext';
+import { CartProvider } from './contexts/CartContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { FloatingTelegramButton } from './components/FloatingTelegramButton';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 import { CatalogPage } from './pages/CatalogPage';
@@ -15,11 +14,9 @@ import { SalesPage } from './pages/SalesPage';
 import { ContactPage } from './pages/ContactPage';
 import { Toaster } from './components/ui/sonner';
 
-type Page = 'home' | 'login' | 'catalog' | 'product' | 'cart' | 'purchase' | 'sales' | 'contact';
-
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [currentPage, setCurrentPage] = useState('home');
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [isDark, setIsDark] = useState(false);
 
   // Initialize theme from localStorage or system preference
@@ -50,12 +47,12 @@ export default function App() {
     }
   };
 
-  const handleNavigate = (page: string) => {
-    setCurrentPage(page as Page);
+  const handleNavigate = (page) => {
+    setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleProductClick = (product: Product) => {
+  const handleProductClick = (product) => {
     setSelectedProduct(product);
     setCurrentPage('product');
     window.scrollTo({ top: 0, behavior: 'smooth' });

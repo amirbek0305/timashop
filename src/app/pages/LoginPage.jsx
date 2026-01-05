@@ -8,11 +8,7 @@ import { Card } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { toast } from 'sonner';
 
-interface LoginPageProps {
-  onNavigate: (page: string) => void;
-}
-
-export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
+export const LoginPage = ({ onNavigate }) => {
   const { t } = useLanguage();
   const { login } = useAuth();
 
@@ -28,9 +24,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
     password: '',
   });
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    
+
     // Mock login
     login({
       id: '1',
@@ -42,9 +38,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate }) => {
     onNavigate('home');
   };
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    
+
     // Mock register
     login({
       id: '1',

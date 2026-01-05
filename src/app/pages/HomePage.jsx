@@ -1,17 +1,11 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Product } from '../contexts/CartContext';
 import { products } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { Button } from '../components/ui/button';
 
-interface HomePageProps {
-  onNavigate: (page: string) => void;
-  onProductClick: (product: Product) => void;
-}
-
-export const HomePage: React.FC<HomePageProps> = ({ onNavigate, onProductClick }) => {
+export const HomePage = ({ onNavigate, onProductClick }) => {
   const { t } = useLanguage();
 
   const categories = [

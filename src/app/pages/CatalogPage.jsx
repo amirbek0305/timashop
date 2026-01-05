@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { Product } from '../contexts/CartContext';
 import { products } from '../data/products';
 import { ProductCard } from '../components/ProductCard';
 import { Button } from '../components/ui/button';
@@ -10,15 +9,11 @@ import { Checkbox } from '../components/ui/checkbox';
 import { Label } from '../components/ui/label';
 import { Slider } from '../components/ui/slider';
 
-interface CatalogPageProps {
-  onProductClick: (product: Product) => void;
-}
-
-export const CatalogPage: React.FC<CatalogPageProps> = ({ onProductClick }) => {
+export const CatalogPage = ({ onProductClick }) => {
   const { t } = useLanguage();
 
   const [filters, setFilters] = useState({
-    categories: [] as string[],
+    categories: [],
     priceRange: [0, 500000],
   });
 
@@ -32,7 +27,7 @@ export const CatalogPage: React.FC<CatalogPageProps> = ({ onProductClick }) => {
     return categoryMatch && priceMatch;
   });
 
-  const handleCategoryToggle = (category: string) => {
+  const handleCategoryToggle = (category) => {
     setFilters((prev) => ({
       ...prev,
       categories: prev.categories.includes(category)

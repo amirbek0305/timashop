@@ -8,16 +8,18 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 
-export const LanguageSwitcher: React.FC = () => {
+export const LanguageSwitcher = () => {
   const { language, setLanguage } = useLanguage();
 
   const languages = [
-    { code: 'uz' as const, label: 'UZ' },
-    { code: 'ru' as const, label: 'RU' },
-    { code: 'en' as const, label: 'EN' },
+    { code: 'uz', label: 'UZ' },
+    { code: 'ru', label: 'RU' },
+    { code: 'en', label: 'EN' },
   ];
 
-  const currentLanguage = languages.find((lang) => lang.code === language);
+  const currentLanguage = languages.find(
+    (lang) => lang.code === language
+  );
 
   return (
     <DropdownMenu>
@@ -26,6 +28,7 @@ export const LanguageSwitcher: React.FC = () => {
           {currentLanguage?.label}
         </Button>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent align="end">
         {languages.map((lang) => (
           <DropdownMenuItem

@@ -6,14 +6,7 @@ import { useCart } from '../contexts/CartContext';
 import { Button } from './ui/button';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
-interface HeaderProps {
-  currentPage: string;
-  onNavigate: (page: string) => void;
-  isDark: boolean;
-  toggleTheme: () => void;
-}
-
-export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate, isDark, toggleTheme }) => {
+export const Header = ({ currentPage, onNavigate, isDark, toggleTheme }) => {
   const { t } = useLanguage();
   const { user, logout } = useAuth();
   const { totalItems } = useCart();
@@ -48,7 +41,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate, isDark,
                 key={item.key}
                 onClick={() => onNavigate(item.key)}
                 className={`transition-colors hover:text-foreground/80 ${
-                  currentPage === item.key ? 'text-foreground' : 'text-foreground/60'
+                  currentPage === item.key
+                    ? 'text-foreground'
+                    : 'text-foreground/60'
                 }`}
               >
                 {item.label}
@@ -68,7 +63,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate, isDark,
               onClick={toggleTheme}
               className="h-9 w-9"
             >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {isDark ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
             </Button>
 
             {/* Cart */}
@@ -89,11 +88,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate, isDark,
             {/* User */}
             {user ? (
               <div className="hidden items-center gap-2 md:flex">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={logout}
-                >
+                <Button variant="ghost" size="sm" onClick={logout}>
                   {t('logout')}
                 </Button>
               </div>
@@ -115,7 +110,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate, isDark,
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="h-9 w-9 md:hidden"
             >
-              {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              {mobileMenuOpen ? (
+                <X className="h-4 w-4" />
+              ) : (
+                <Menu className="h-4 w-4" />
+              )}
             </Button>
           </div>
         </div>
@@ -132,12 +131,15 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate, isDark,
                     setMobileMenuOpen(false);
                   }}
                   className={`text-left transition-colors hover:text-foreground/80 ${
-                    currentPage === item.key ? 'text-foreground' : 'text-foreground/60'
+                    currentPage === item.key
+                      ? 'text-foreground'
+                      : 'text-foreground/60'
                   }`}
                 >
                   {item.label}
                 </button>
               ))}
+
               {!user && (
                 <button
                   onClick={() => {

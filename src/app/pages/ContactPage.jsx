@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Card } from '../components/ui/card';
 
-export const ContactPage: React.FC = () => {
+export const ContactPage = () => {
   const { t } = useLanguage();
 
   const contactInfo = [
@@ -46,7 +46,7 @@ export const ContactPage: React.FC = () => {
         <div className="grid gap-6 md:grid-cols-2">
           {contactInfo.map((info, index) => {
             const Icon = info.icon;
-            
+
             return (
               <Card key={index} className="p-6">
                 <div className="flex items-start gap-4">

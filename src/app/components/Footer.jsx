@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 
-export const Footer: React.FC = () => {
+export const Footer = () => {
   const { t } = useLanguage();
 
   return (

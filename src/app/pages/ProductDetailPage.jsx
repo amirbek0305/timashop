@@ -1,27 +1,26 @@
 import React, { useState } from 'react';
 import { ArrowLeft, ShoppingCart } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useCart, Product } from '../contexts/CartContext';
+import { useCart } from '../contexts/CartContext';
 import { Button } from '../components/ui/button';
 import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Label } from '../components/ui/label';
 import { toast } from 'sonner';
 
-interface ProductDetailPageProps {
-  product: Product;
-  onNavigate: (page: string) => void;
-}
-
-export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ product, onNavigate }) => {
+export const ProductDetailPage = ({ product, onNavigate }) => {
   const { t, language } = useLanguage();
   const { addItem } = useCart();
 
-  const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] || '');
-  const [selectedColor, setSelectedColor] = useState<string>(product.colors?.[0] || '');
+  const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || '');
+  const [selectedColor, setSelectedColor] = useState(product.colors?.[0] || '');
   const [quantity, setQuantity] = useState(1);
 
   const productName = language === 'uz' ? product.name : language === 'ru' ? product.nameRu : product.nameEn;
-  const productDescription = language === 'uz' ? product.description : language === 'ru' ? product.descriptionRu : product.descriptionEn;
+  const productDescription = language === 'uz'
+    ? product.description
+    : language === 'ru'
+    ? product.descriptionRu
+    : product.descriptionEn;
 
   const handleAddToCart = () => {
     for (let i = 0; i < quantity; i++) {
